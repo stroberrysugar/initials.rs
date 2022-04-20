@@ -132,7 +132,7 @@ impl AvatarBuilder {
     /// Draw the image according to the metrics given.
     pub fn draw(self) -> ImageBuffer<Rgba<u8>, Vec<u8>> {
         // convert font-data vector to rusttype::Font
-        let font = Font::from_bytes(&self.font_data as &[u8]).expect("Error constructing Font");
+        let font = Font::try_from_bytes(&self.font_data as &[u8]).expect("Error constructing Font");
 
         // substract metrics from the font according to the font scale
         let v_metrics = font.v_metrics(self.font_scale);
@@ -163,7 +163,7 @@ impl AvatarBuilder {
         let top_padding = (self.height - glyphs_height) / 2;
 
         // create dynamic RGBA image
-        let mut image = DynamicImage::new_rgba8(self.width, self.height).to_rgba();
+        let mut image = DynamicImage::new_rgba8(self.width, self.height).to_rgba8();
 
         // randomize colors if not being settled
         let mut colors = self.randomized_colors;
@@ -212,7 +212,7 @@ impl AvatarBuilder {
 
         for (_, _, pixel) in image.enumerate_pixels_mut() {
             // put background pixels for the uncovered alpha channels
-            if pixel.data[3] == 0 {
+            if pixel.0[3] == 0 {
                 *pixel = background_color.to_rgba(255)
             }
         }

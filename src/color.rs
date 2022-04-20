@@ -29,9 +29,7 @@ impl RgbColor {
 
     /// Convert to rgba (including transparency) for image creation
     pub fn to_rgba(self, alpha: u8) -> Rgba<u8> {
-        Rgba {
-            data: [self.0, self.1, self.2, alpha]
-        }
+        Rgba([self.0, self.1, self.2, alpha])
     }
 
     fn calculate_luminance(&self) -> f32 {

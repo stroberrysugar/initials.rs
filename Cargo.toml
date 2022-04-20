@@ -22,7 +22,7 @@ name = "bin"
 path = "bin/main.rs"
 
 [dependencies]
-failure = "0.1.2"
-image = "0.19.0"
-rusttype = "0.6.4"
-rand = "0.5.5"
+failure = "0.1"
+image = "0.24"
+rusttype = "0.9"
+rand = "0.8"
